@@ -1,0 +1,685 @@
+:root{
+  --bg:#fff;
+  --accent:#1bb8d3;
+  --ink:#182640;
+  --muted:#4a586e;
+  --topbar:#20b8d1;
+}
+*{box-sizing:border-box}
+html,body,#root{min-height:100%}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:var(--bg);color:var(--ink)}
+button{font:inherit}
+.app-shell{min-height:100vh;display:flex;flex-direction:column}
+.container{width:min(100% - 80px,1360px);margin:0 auto}
+main.container{flex:1;padding:0}
+
+/* Topbar */
+.topbar{background:var(--topbar);color:#fff;font-size:17px;font-weight:500}
+.topbar .container{min-height:47px}
+.topbar .container{display:flex;justify-content:space-between;align-items:center}
+
+/* Header / Nav */
+header.site-header{background:#fff;border-bottom:1px solid #e4e8ed}
+.header-content{min-height:102px;display:flex;align-items:center}
+.main-nav{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 32px}
+.main-nav a{color:#202b42;text-decoration:none;font-size:18px;font-weight:500;padding:12px 13px;white-space:nowrap}
+.brand{color:var(--ink);font-size:27px;font-weight:800;text-decoration:none;letter-spacing:-1.2px;white-space:nowrap}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.pill-btn{background:var(--accent);color:#fff;padding:13px 27px;border-radius:999px;border:none;cursor:pointer;font-size:17px;font-weight:700;transition:background .2s ease,transform .2s ease}
+.pill-btn:hover{background:#10aeca;transform:translateY(-1px)}
+
+/* Hero */
+.home-page{min-height:718px}
+.hero{min-height:718px;background:linear-gradient(112deg,#eafbfe 0%,#f8fdfe 42%,#fff 76%);display:flex;align-items:flex-start;justify-content:center;text-align:center;padding:112px 24px 48px}
+.hero-content{max-width:1000px}
+.hero .kicker{color:var(--accent);text-transform:uppercase;letter-spacing:2.4px;font-size:18px;font-weight:700;margin-bottom:23px}
+.hero h1{font-size:66px;line-height:1.05;letter-spacing:-2.5px;margin:0;color:var(--ink)}
+.hero p.lead{font-size:29px;line-height:1.35;color:var(--ink);margin:27px 0 25px}
+.hero .meta{font-size:20px;font-weight:600;color:var(--muted);margin:0}
+.hero .hero-cta{margin-top:28px}
+.countdown-title{display:inline-block;margin-top:27px;border:1px solid #a6e3ef;border-radius:14px;background:rgba(255,255,255,.75);padding:11px 26px;color:#0eb5d0;text-transform:uppercase;letter-spacing:1.65px;font-size:14px;font-weight:700}
+
+/* Countdown */
+.countdown{display:flex;justify-content:center;gap:30px;margin-top:26px}
+.countdown .box{background:rgba(246,246,246,.92);border-radius:10px;padding:4px 8px;min-width:70px;text-align:center}
+.countdown .num{font-size:41px;line-height:1;font-weight:800;color:#000;letter-spacing:-1px}
+.countdown .lbl{font-size:14px;color:#4b4b4b;margin-top:4px}
+
+/* Welcome note */
+.welcome-card{max-width:1080px;margin:82px auto 94px;padding:52px 62px;border:1px solid #d9edf2;border-radius:22px;background:linear-gradient(135deg,#f7fdff,#fff);box-shadow:0 15px 35px rgba(27,91,111,.08)}
+.welcome-kicker{margin:0 0 12px;color:#10b7d1;font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.welcome-card h2{margin:0 0 25px;color:#182640;font-size:30px;letter-spacing:-.6px}
+.welcome-copy{color:#455570;font-size:17px;line-height:1.7}
+.welcome-copy p{margin:0 0 19px}
+.welcome-signoff{margin:29px 0 0;color:#1a2c4c;font-size:17px;line-height:1.6}
+
+/* Footer */
+footer{margin-top:auto}
+.site-footer{background:#172640;color:#dbe2eb;padding:28px 0 46px;font-size:17px}
+.site-footer .container{display:flex;justify-content:space-between;align-items:center}
+
+/* Simple dropdown hover */
+.dropdown:hover .dropdown-menu{display:block}
+.dropdown-menu a{display:block;padding:6px 10px;color:var(--accent);text-decoration:none}
+
+/* Brochure and policy documents */
+.document-page{padding:58px 0 70px}
+.document-heading{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:28px}
+.document-heading h1{margin:5px 0 8px;font-size:38px;letter-spacing:-1.2px}
+.document-heading p:not(.eyebrow){margin:0;color:var(--muted);font-size:17px}
+.eyebrow{margin:0;color:var(--accent);font-size:13px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}
+.document-heading .pill-btn{text-decoration:none;white-space:nowrap}
+.pdf-viewer{width:100%;height:780px;border:1px solid #dce4e9;border-radius:8px;background:#f5f7f8}
+.terms-link{color:#079eb8;font-weight:700}
+
+/* Abstract submission handoff */
+.abstract-page{position:relative;isolation:isolate;min-height:calc(100vh - 149px);overflow:hidden;padding:42px 0 80px}
+.abstract-page::before,.abstract-page::after{position:absolute;z-index:-1;content:"";border-radius:50%;background:rgba(210,232,252,.5)}
+.abstract-page::before{width:500px;height:500px;top:-360px;left:-180px}
+.abstract-page::after{width:430px;height:430px;right:-250px;bottom:-260px;background:rgba(201,241,251,.64)}
+.abstract-card{position:relative;display:grid;place-items:center;min-height:760px;overflow:hidden;border-radius:54px;background:rgba(255,255,255,.94);box-shadow:0 28px 55px rgba(80,121,171,.14)}
+.abstract-card::before{position:absolute;content:"";width:850px;height:850px;top:-235px;left:50%;border-radius:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(237,246,255,.84) 0%,rgba(244,249,255,.64) 55%,rgba(255,255,255,0) 70%)}
+.abstract-content{position:relative;z-index:1;max-width:1050px;padding:55px 30px;text-align:center}
+.rocket{font-size:76px;line-height:1;filter:drop-shadow(0 10px 8px rgba(33,96,155,.16));transform:rotate(10deg)}
+.abstract-kicker{margin:58px 0 52px;color:#6d7788;font-size:18px;font-weight:800;letter-spacing:7px;text-transform:uppercase}
+.abstract-content h1{margin:0;color:#21314e;font-size:48px;line-height:1.65;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.abstract-content h1 span{color:#2c64d6}
+.abstract-content h1 strong{color:#57595d;font-weight:800}
+.official-site-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-width:330px;margin-top:99px;padding:24px 38px;border-radius:999px;background:linear-gradient(105deg,#316bdc,#00c7eb);box-shadow:0 14px 25px rgba(42,111,218,.21);color:#fff;font-size:22px;font-weight:800;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+.official-site-btn:hover{transform:translateY(-2px);box-shadow:0 18px 30px rgba(42,111,218,.29)}
+.official-site-btn span{font-size:28px;line-height:.8}
+
+/* Tourist destinations */
+.tourist-page{max-width:1088px;padding:42px 0 72px}
+.tourist-heading{margin-bottom:30px}
+.tourist-heading h1{margin:0 0 28px;color:#172641;font-size:39px;letter-spacing:-1.4px}
+.tourist-heading p{margin:0;color:#465673;font-size:18px;line-height:1.5}
+.destination-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:34px;row-gap:32px}
+.destination-card{overflow:hidden;border:1px solid #d6e6ed;border-radius:17px;background:#fff;transition:transform .2s ease,box-shadow .2s ease}
+.destination-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(29,67,96,.1)}
+.destination-card img{display:block;width:100%;height:266px;object-fit:cover}
+.destination-copy{padding:25px 25px 26px}
+.destination-copy h2{margin:0 0 11px;color:#192741;font-size:28px;letter-spacing:-.8px}
+.destination-copy p{margin:0;color:#4b5a76;font-size:17px;line-height:1.55}
+
+/* Accommodation */
+.accommodation-page{padding:104px 0 110px}
+.accommodation-heading{text-align:center}
+.accommodation-heading h1{margin:0;color:#172641;font-size:50px;letter-spacing:-1.8px}
+.accommodation-heading span{display:block;width:122px;height:6px;margin:25px auto 29px;border-radius:999px;background:#22b8d0}
+.accommodation-heading p{margin:0;color:#4c5b76;font-size:23px;line-height:1.45}
+.accommodation-table-wrap{margin-top:54px;overflow:hidden;border:1px solid #d7e3e8;border-radius:16px 16px 0 0}
+.accommodation-table{width:100%;border-collapse:collapse;background:#fff;text-align:left}
+.accommodation-table thead{background:linear-gradient(100deg,#1abbd5,#249b9c);color:#fff}
+.accommodation-table th{padding:21px 29px;font-size:20px;font-weight:800}
+.accommodation-table td{padding:25px 29px;border-bottom:1px solid #d7e3e8;color:#2f3e59;font-size:21px;font-weight:600}
+.accommodation-table tbody tr:last-child td{border-bottom:0}
+.accommodation-table td:last-child{color:#ef2a2a;font-weight:800}
+
+/* Contact */
+.contact-page{display:grid;grid-template-columns:minmax(380px,.88fr) minmax(480px,1.2fr);gap:76px;align-items:start;padding:72px 0 100px}
+.contact-details{display:grid;gap:53px}
+.contact-item{display:grid;grid-template-columns:98px 1fr;gap:31px;align-items:start}
+.contact-icon{display:grid;width:98px;height:98px;place-items:center;border-radius:50%;background:#eaf0ff;color:#08b9e4}
+.contact-icon svg{width:42px;height:42px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+.contact-item h2{margin:0 0 19px;color:#172b51;font-size:30px;line-height:1.1}
+.contact-detail{color:#606675;font-size:22px;line-height:1.55}
+.contact-detail p{margin:0 0 8px}
+.contact-detail a{color:#606675;text-decoration:none}
+.contact-detail a:hover{color:#0baec9;text-decoration:underline}
+.contact-map-wrap{position:relative;min-height:650px;overflow:hidden;border-radius:20px;box-shadow:0 6px 23px rgba(23,43,81,.18)}
+.contact-map{display:block;width:100%;height:650px;border:0}
+.map-link{position:absolute;right:18px;bottom:18px;padding:10px 15px;border-radius:8px;background:#fff;color:#172b51;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 9px rgba(0,0,0,.18)}
+
+/* KUA council and organizing committee */
+.committee-page{padding:65px 0 96px}
+.committee-section + .committee-section{margin-top:104px}
+.committee-section > h1{margin:0;color:#000;text-align:center;font-size:51px;font-weight:800;letter-spacing:.3px;text-transform:uppercase}
+.section-accent{display:block;width:128px;height:7px;margin:22px auto 75px;border-radius:99px;background:#0dccdf}
+.member-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:36px}
+.member-card{min-height:490px;padding:44px 24px 38px;border-radius:22px;background:#fff;text-align:center;box-shadow:0 12px 31px rgba(24,40,64,.08);transition:transform .2s ease,box-shadow .2s ease}
+.member-card:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(24,40,64,.12)}
+.member-photo{display:grid;width:190px;height:190px;place-items:center;margin:0 auto 42px;border-radius:50%;object-fit:cover;background:#f7f9fd}
+.member-fallback{color:#2360d7;font-size:64px;font-weight:800;letter-spacing:-4px}
+.member-card h2{min-height:65px;margin:0;color:#162b52;font-size:30px;line-height:1.1;letter-spacing:-.7px}
+.member-roles{margin-top:32px;color:#205bd8;font-size:17px;font-weight:800;line-height:1.4;text-transform:uppercase}
+.member-roles p{margin:0 0 8px}
+.member-placeholder{border:1px dashed #c7d6e2;box-shadow:none}
+.member-placeholder .member-photo{background:#f2f7fa;color:#7b94a8;font-size:52px}
+.member-placeholder h2{color:#526179;font-size:24px}
+.member-placeholder .member-roles{color:#6683a6;font-size:14px}
+
+/* Registration */
+.registration-page{margin:0 calc((100vw - min(100vw - 80px, 1360px)) / -2);min-height:calc(100vh - 149px);padding:47px max(40px,calc((100vw - min(100vw - 80px, 1360px)) / 2)) 52px;background:#b0dcec}
+.registration-page > h1{margin:0 0 48px;text-align:center;color:#20252d;font-family:Georgia,'Times New Roman',serif;font-size:43px;font-weight:500}
+.registration-form{display:grid;grid-template-columns:1fr 1fr;gap:0 38px}
+.registration-column{display:grid;align-content:start;gap:39px}
+.registration-field{display:grid;gap:8px;color:#20252d;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:700}
+.registration-field input,.registration-field select{width:100%;height:61px;padding:0 20px;border:1px solid #dce0e5;border-radius:10px;background:#fff;color:#20252d;font-family:inherit;font-size:19px;outline:none}
+.registration-field input::placeholder{color:#666b73}
+.registration-field input:focus,.registration-field select:focus{border-color:#16afd0;box-shadow:0 0 0 3px rgba(22,175,208,.2)}
+.membership-field{margin-top:-18px}
+.membership-field > p{margin:0 0 10px;color:#d71414;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700}
+.registration-submit{grid-column:1/-1;display:flex;justify-content:center;margin-top:74px}
+.registration-submit .pill-btn{min-width:250px;padding:16px 28px;background:#06afd1;font-family:Georgia,'Times New Roman',serif;font-size:20px;text-transform:uppercase}
+.registration-fees{margin-top:105px;padding-top:54px;border-top:1px solid rgba(27,79,105,.25)}
+.registration-fees > header{text-align:center}
+.registration-fees > header p{margin:0 0 10px;color:#0754b5;font-size:32px;font-weight:800}
+.registration-fees > header h2{margin:0;color:#0754b5;font-size:29px}
+.registration-fees > header span{display:block;margin-top:5px;color:#0754b5;font-size:19px;font-weight:700}
+.fee-stage{margin-top:45px}
+.fee-stage-heading{display:grid;grid-template-columns:1fr 1fr;border:3px solid #142731;border-bottom:0;background:rgba(255,255,255,.2);text-align:center}
+.fee-stage-heading h3,.fee-stage-heading p{margin:0;padding:19px 18px;font-size:23px;font-weight:800}
+.fee-stage-heading h3{border-right:3px solid #142731}
+.fee-table-wrap{overflow-x:auto}
+.fee-table{width:100%;min-width:720px;border-collapse:collapse;text-align:center}
+.fee-table th,.fee-table td{border:3px solid #142731;padding:17px 20px;font-size:19px}
+.fee-table thead th{background:rgba(255,255,255,.38);font-size:17px}
+.fee-table tbody th{width:33%;font-weight:800}
+.fee-table td{font-weight:800}
+.fee-table td:last-child{color:#0754b5}
+.fee-table-wide{min-width:1040px}
+.fee-table-wide thead th{width:22%}
+.fee-table-wide thead th:first-child{width:34%}
+.fee-table-wide td span,.fee-table-wide td small{display:block}
+.fee-table-wide td small{margin-top:5px;color:#0754b5;font-size:14px}
+.fee-notes{margin:23px 0 0;padding-left:26px;color:#0754b5;font-size:17px;font-weight:700}
+
+@media (max-width: 1050px){
+  .container{width:min(100% - 40px,1360px)}
+  .header-content{min-height:86px}
+  .main-nav{gap:0;padding:0 12px}
+  .main-nav a{font-size:15px;padding:10px 8px}
+  .brand{font-size:23px}
+}
+
+@media (max-width: 760px){
+  .container{width:min(100% - 28px,1360px)}
+  .topbar{font-size:13px}
+  .topbar .container{min-height:40px}
+  .header-content{min-height:auto;flex-wrap:wrap;padding:18px 0}
+  .main-nav{order:3;flex-basis:100%;justify-content:flex-start;overflow:auto;padding:14px 0 0}
+  .nav-right{margin-left:auto}
+  .main-nav a{font-size:14px;padding:8px 10px}
+  .nav-right .pill-btn{font-size:14px;padding:10px 16px}
+  .home-page,.hero{min-height:620px}
+  .hero{padding:80px 16px 36px}
+  .hero .kicker{font-size:14px;letter-spacing:1.8px}
+  .hero h1{font-size:48px;letter-spacing:-1.5px}
+  .hero p.lead{font-size:22px}
+  .hero .meta{font-size:16px}
+  .countdown{gap:8px}
+  .countdown .box{min-width:60px}
+  .countdown .num{font-size:29px}
+  .welcome-card{margin:45px auto 56px;padding:32px 25px;border-radius:16px}
+  .welcome-card h2{font-size:25px}
+  .welcome-copy,.welcome-signoff{font-size:16px}
+  .site-footer{padding:26px 0}
+  .site-footer .container{gap:15px;align-items:flex-start;flex-direction:column;font-size:14px}
+  .document-page{padding:35px 0 45px}
+  .document-heading{align-items:flex-start;flex-direction:column;gap:18px}
+  .document-heading h1{font-size:31px}
+  .pdf-viewer{height:620px}
+  .abstract-page{min-height:auto;padding:28px 0 45px}
+  .abstract-card{min-height:650px;border-radius:32px}
+  .abstract-card::before{width:620px;height:620px;top:-120px}
+  .abstract-content{padding:42px 18px}
+  .rocket{font-size:57px}
+  .abstract-kicker{margin:38px 0 32px;font-size:13px;letter-spacing:4px}
+  .abstract-content h1{font-size:28px;line-height:1.55;letter-spacing:.5px}
+  .official-site-btn{min-width:270px;margin-top:58px;padding:18px 25px;font-size:17px}
+  .tourist-page{padding:30px 0 46px}
+  .tourist-heading h1{margin-bottom:16px;font-size:32px}
+  .tourist-heading p{font-size:16px}
+  .destination-grid{grid-template-columns:1fr;gap:26px}
+  .destination-card img{height:230px}
+  .destination-copy{padding:20px}
+  .destination-copy h2{font-size:24px}
+  .destination-copy p{font-size:16px}
+  .accommodation-page{padding:58px 0 65px}
+  .accommodation-heading h1{font-size:38px}
+  .accommodation-heading span{width:92px;margin:17px auto 21px}
+  .accommodation-heading p{font-size:18px}
+  .accommodation-table-wrap{margin-top:35px;overflow-x:auto}
+  .accommodation-table{min-width:570px}
+  .accommodation-table th,.accommodation-table td{padding:18px 20px;font-size:17px}
+  .contact-page{grid-template-columns:1fr;gap:42px;padding:42px 0 60px}
+  .contact-details{gap:31px}
+  .contact-item{grid-template-columns:68px 1fr;gap:19px}
+  .contact-icon{width:68px;height:68px}
+  .contact-icon svg{width:31px;height:31px}
+  .contact-item h2{margin-bottom:11px;font-size:25px}
+  .contact-detail{font-size:17px}
+  .contact-map-wrap,.contact-map{min-height:420px;height:420px}
+  .committee-page{padding:43px 0 60px}
+  .committee-section + .committee-section{margin-top:66px}
+  .committee-section > h1{font-size:35px}
+  .section-accent{width:88px;height:5px;margin:16px auto 42px}
+  .member-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .member-card{min-height:350px;padding:28px 13px 25px;border-radius:16px}
+  .member-photo{width:110px;height:110px;margin-bottom:25px}
+  .member-fallback{font-size:39px}
+  .member-card h2{min-height:52px;font-size:21px}
+  .member-roles{margin-top:19px;font-size:13px}
+  .member-placeholder h2{font-size:18px}
+  .member-placeholder .member-roles{font-size:12px}
+  .registration-page{margin:0 -14px;padding:36px 20px 48px}
+  .registration-page > h1{margin-bottom:31px;font-size:32px;line-height:1.25}
+  .registration-form{grid-template-columns:1fr;gap:35px}
+  .registration-column{gap:25px}
+  .registration-field{font-size:21px}
+  .registration-field input,.registration-field select{height:53px;font-size:16px}
+  .membership-field{margin-top:-8px}
+  .membership-field > p{font-size:16px}
+  .registration-submit{grid-column:auto;margin-top:9px}
+  .registration-fees{margin-top:66px;padding-top:35px}
+  .registration-fees > header p{font-size:25px}
+  .registration-fees > header h2{font-size:22px}
+  .registration-fees > header span{font-size:15px}
+  .fee-stage{margin-top:32px}
+  .fee-stage-heading h3,.fee-stage-heading p{padding:14px 9px;font-size:16px}
+  .fee-table th,.fee-table td{padding:13px 12px;font-size:16px}
+  .fee-notes{font-size:14px}
+}
+
+
+/* =========================================================
+   KUACON 2027 - HOME PAGE REGISTRATION FEES
+   ========================================================= */
+
+.home-registration-fees {
+  width: min(1100px, calc(100% - 40px));
+  margin: 80px auto 100px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.home-registration-header {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.home-registration-header .section-kicker {
+  margin: 0 0 8px;
+
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.home-registration-header h2 {
+  margin: 0;
+
+  color: var(--ink);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.home-registration-header p:last-child {
+  margin: 10px 0 0;
+
+  color: var(--muted);
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   TABLES CONTAINER
+   ========================================================= */
+
+.home-registration-tables {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+/* =========================================================
+   INDIVIDUAL TABLE
+   ========================================================= */
+
+.home-registration-table {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #cddfe7;
+  border-radius: 14px;
+
+  box-shadow: 0 10px 28px rgba(24, 38, 64, 0.08);
+}
+
+
+/* =========================================================
+   TABLE HEADER
+   Example:
+   
+   Super Early Bird | Till end of KUACON 2026
+   ========================================================= */
+
+.home-registration-table-header {
+  display: grid;
+  grid-template-columns: 35% 65%;
+
+  background: #eaf8fb;
+
+  border-bottom: 1px solid #cddfe7;
+}
+
+.home-registration-table-header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 70px;
+  padding: 16px 20px;
+
+  color: var(--ink);
+
+  font-size: 18px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+.home-registration-table-header > div:first-child {
+  border-right: 1px solid #cddfe7;
+}
+
+
+/* =========================================================
+   COLUMN HEADER
+   Category | Registration Fee | Total incl. 18% GST
+   ========================================================= */
+
+.home-registration-column-header {
+  display: grid;
+  grid-template-columns: 35% 32.5% 32.5%;
+
+  background: #f5fbfd;
+
+  border-bottom: 1px solid #cddfe7;
+}
+
+.home-registration-column-header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 58px;
+  padding: 12px 15px;
+
+  color: var(--ink);
+
+  font-size: 15px;
+  font-weight: 800;
+
+  text-align: center;
+
+  border-right: 1px solid #cddfe7;
+}
+
+.home-registration-column-header > div:last-child {
+  border-right: none;
+}
+
+
+/* =========================================================
+   TABLE ROW
+   ========================================================= */
+
+.home-registration-row {
+  display: grid;
+  grid-template-columns: 35% 32.5% 32.5%;
+
+  min-height: 65px;
+
+  border-bottom: 1px solid #e2ebef;
+}
+
+.home-registration-row:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   ALL CELL STYLES
+   ========================================================= */
+
+.home-registration-row > div {
+  display: flex;
+  align-items: center;
+
+  padding: 15px 20px;
+
+  border-right: 1px solid #e2ebef;
+}
+
+.home-registration-row > div:last-child {
+  border-right: none;
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.home-registration-category {
+  color: var(--ink);
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   PRICE
+   ========================================================= */
+
+.home-registration-price {
+  justify-content: center;
+
+  color: var(--ink);
+
+  font-size: 19px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   GST PRICE
+   Highlight the final amount payable
+   ========================================================= */
+
+.home-registration-price.gst-price {
+  color: #0754b5;
+}
+
+
+/* =========================================================
+   NOTES
+   ========================================================= */
+
+.home-registration-notes {
+  margin-top: 22px;
+  padding: 18px 22px;
+
+  background: #eef9ff;
+
+  border-radius: 12px;
+
+  color: #0754b5;
+
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.home-registration-notes p {
+  margin: 4px 0;
+}
+
+
+/* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+.home-registration-cta {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 32px;
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  .home-registration-fees {
+    width: calc(100% - 28px);
+
+    margin: 55px auto 70px;
+  }
+
+
+  /* Section heading */
+
+  .home-registration-header {
+    margin-bottom: 28px;
+  }
+
+  .home-registration-header .section-kicker {
+    font-size: 12px;
+  }
+
+  .home-registration-header h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .home-registration-header p:last-child {
+    font-size: 14px;
+  }
+
+
+  /* Table */
+
+  .home-registration-table {
+    border-radius: 10px;
+  }
+
+
+  /* Table title */
+
+  .home-registration-table-header {
+    grid-template-columns: 1fr;
+  }
+
+  .home-registration-table-header > div {
+    min-height: 55px;
+
+    padding: 13px 12px;
+
+    font-size: 16px;
+  }
+
+  .home-registration-table-header > div:first-child {
+    border-right: none;
+    border-bottom: 1px solid #cddfe7;
+  }
+
+
+  /* Column headers */
+
+  .home-registration-column-header {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .home-registration-column-header > div {
+    min-height: 52px;
+
+    padding: 10px 5px;
+
+    font-size: 12px;
+
+    line-height: 1.3;
+  }
+
+
+  /* Rows */
+
+  .home-registration-row {
+    grid-template-columns: 1fr 1fr 1fr;
+
+    min-height: 60px;
+  }
+
+  .home-registration-row > div {
+    padding: 12px 5px;
+  }
+
+
+  /* Category */
+
+  .home-registration-category {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+
+  /* Prices */
+
+  .home-registration-price {
+    font-size: 14px;
+  }
+
+
+  /* Notes */
+
+  .home-registration-notes {
+    padding: 15px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE SCREENS
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .home-registration-fees {
+    width: calc(100% - 20px);
+  }
+
+  .home-registration-column-header > div {
+    font-size: 11px;
+  }
+
+  .home-registration-category {
+    font-size: 12px;
+  }
+
+  .home-registration-price {
+    font-size: 13px;
+  }
+
+  .home-registration-row > div {
+    padding: 10px 4px;
+  }
+}
