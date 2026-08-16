@@ -4,7 +4,7 @@ const resend = new Resend(
   process.env.RESEND_API_KEY
 )
 
-const ORGANIZER_EMAIL = 'jagrutibhat093@gmail.com'
+const ORGANIZER_EMAIL = 'kuacon2027@gmail.com'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
