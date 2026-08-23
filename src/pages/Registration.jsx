@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 const indianStates = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
 const designations = ['Consultant', 'Professor', 'Associate Professor', 'Assistant Professor', 'Senior Resident', 'Tutor', 'Post Graduate', 'Other']
-const superEarlyFees = [['KUA Members', 5000], ['Non-KUA Members', 6000], ['Post Graduates', 4000], ['Accompanying Person', 4000]]
-const earlyFees = [['KUA Members', 6000], ['Non-KUA Members', 7000], ['Post Graduates', 4500], ['Accompanying Person', 4500]]
+const superEarlyFees = [['KUA Members', 5500], ['Non-KUA Members', 6500], ['Post Graduates', 4500], ['Accompanying Person', 4500]]
+const earlyFees = [['KUA Members', 6500], ['Non-KUA Members', 7500], ['Post Graduates', 5000], ['Accompanying Person', 5000]]
 const standardFees = [
-    ['KUA Members', 7000, 8000, 9500],
-    ['Non-KUA Members', 8000, 9000, 10500],
-    ['Post Graduates', 5500, 6500, 7500],
-    ['Accompanying Person', 5500, 6500, 7500]
+    ['KUA Members', 7500, 8500, 1000],
+    ['Non-KUA Members', 8500, 9500, 11000],
+    ['Post Graduates', 6000, 7000, 8000],
+    ['Accompanying Person', 6000, 7000, 8000]
 ]
 const formatCurrency = (amount) => `₹${amount.toLocaleString('en-IN')}`
 const totalWithGst = (amount) => Math.round(amount * 1.18)

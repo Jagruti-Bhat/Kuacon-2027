@@ -157,8 +157,8 @@ export default async function handler(req, res) {
 
           <p>
             <strong>KUACON 2027</strong><br />
-            6–8 November 2027<br />
-            Essentia Resorts, Sirsi
+            5–8 November 2027<br />
+            Omkar Jungle Resort & Spa, Sirsi
           </p>
         `,
       })
@@ -222,8 +222,8 @@ export default async function handler(req, res) {
 
           <p>
             <strong>KUACON 2027</strong><br />
-            6–8 November 2027<br />
-            Essentia Resorts, Sirsi
+            5–8 November 2027<br />
+            Omkar Jungle Resort & Spa, Sirsi
           </p>
 
           <p>

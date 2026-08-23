@@ -5,7 +5,7 @@ export default function Footer(){
     <footer>
       <div className="site-footer">
         <div className="container">
-          <div>KUACON 2027 · 6-8 November · Essentia Resorts, Sirsi</div>
+          <div>KUACON 2027 · 5-8 November · Omkar Jungle Resort & Spa, Sirsi</div>
           <div>© 2027 KUACON. All rights reserved.</div>
         </div>
       </div>

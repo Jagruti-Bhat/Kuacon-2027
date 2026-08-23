@@ -1,7 +1,7 @@
 import React from 'react'
 
 const stays = [
-  ['Essentia Resorts', '0 km'],
+  ['Omkar Jungle Resort & Spa, Sirsi', '0 km'],
   ['Hotel Supriya International', '13.2 km'],
   ['Ibbani Resorts', '6 km'],
   ['Hotel Alekha Gateway', '16.2 km'],

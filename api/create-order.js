@@ -44,33 +44,33 @@ function getRegistrationStage() {
 function getBaseFee(category, stage) {
   const fees = {
     superEarly: {
-      Member: 5000,
-      "Non Member": 6000,
-      "Post Graduate": 4000,
-    },
-
-    early: {
-      Member: 6000,
-      "Non Member": 7000,
+      Member: 5500,
+      "Non Member": 6500,
       "Post Graduate": 4500,
     },
 
+    early: {
+      Member: 6500,
+      "Non Member": 7500,
+      "Post Graduate": 5000,
+    },
+
     regular: {
-      Member: 7000,
-      "Non Member": 8000,
-      "Post Graduate": 5500,
+      Member: 7500,
+      "Non Member": 8500,
+      "Post Graduate": 6000,
     },
 
     late: {
-      Member: 8000,
-      "Non Member": 9000,
-      "Post Graduate": 6500,
+      Member: 8500,
+      "Non Member": 9500,
+      "Post Graduate": 7000,
     },
 
     spot: {
-      Member: 9500,
-      "Non Member": 10500,
-      "Post Graduate": 7500,
+      Member: 1000,
+      "Non Member": 11000,
+      "Post Graduate": 8000,
     },
   };
 

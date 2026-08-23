@@ -10,50 +10,50 @@ export default function Home({ onNavigate }) {
             title: 'Super Early Bird',
             period: 'Till end of KUACON 2026',
             prices: {
-                'KUA Members': 5000,
-                'Non-KUA Members': 6000,
-                'Post Graduates': 4000,
-                'Accompanying Person': 4000,
+                'KUA Members': 5500,
+                'Non-KUA Members': 6500,
+                'Post Graduates': 4500,
+                'Accompanying Person': 4500,
             },
         },
         {
             title: 'Early Bird',
             period: 'Till 15th May 2027',
             prices: {
-                'KUA Members': 6000,
-                'Non-KUA Members': 7000,
-                'Post Graduates': 4500,
-                'Accompanying Person': 4500,
+                'KUA Members': 6500,
+                'Non-KUA Members': 7500,
+                'Post Graduates': 5000,
+                'Accompanying Person': 5000,
             },
         },
         {
             title: 'Regular Registration',
             period: '16th May 2027 to 15th August 2027',
             prices: {
-                'KUA Members': 7000,
-                'Non-KUA Members': 8000,
-                'Post Graduates': 5500,
-                'Accompanying Person': 5500,
+                'KUA Members': 7500,
+                'Non-KUA Members': 8500,
+                'Post Graduates': 6000,
+                'Accompanying Person': 6000,
             },
         },
         {
             title: 'Late Registration',
             period: '16th August 2027 to 15th October 2027',
             prices: {
-                'KUA Members': 8000,
-                'Non-KUA Members': 9000,
-                'Post Graduates': 6500,
-                'Accompanying Person': 6500,
+                'KUA Members': 8500,
+                'Non-KUA Members': 9500,
+                'Post Graduates': 7000,
+                'Accompanying Person': 7000,
             },
         },
         {
             title: 'Spot Registration',
             period: '16th October 2027 onwards',
             prices: {
-                'KUA Members': 9500,
-                'Non-KUA Members': 10500,
-                'Post Graduates': 7500,
-                'Accompanying Person': 7500,
+                'KUA Members': 1000,
+                'Non-KUA Members': 11000,
+                'Post Graduates': 8000,
+                'Accompanying Person': 8000,
             },
         },
     ]
@@ -73,7 +73,7 @@ export default function Home({ onNavigate }) {
                     </p>
 
                     <p className="meta">
-                        6–8 November 2027 · Essentia Resorts, Sirsi
+                        5–8 November 2027 · Omkar Jungle Resort & Spa, Sirsi
                     </p>
 
                     <div className="hero-cta">

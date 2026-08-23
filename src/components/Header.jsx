@@ -39,6 +39,7 @@ function Dropdown(){
         <a href="/conference-brochure.pdf" target="_blank" rel="noopener">Conference Brochure</a>
         <a href="/trade-brochure.pdf" target="_blank" rel="noopener">Trade Brochure</a>
         <a href="/accommodation-brochure.pdf" target="_blank" rel="noopener">Accommodation Brochure</a>
+        <a href="/trip-brochure.pdf" target="_blank" rel="noopener">Trip Brochure</a>
       </div>
     </div>
   )
