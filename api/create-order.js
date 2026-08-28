@@ -47,30 +47,35 @@ function getBaseFee(category, stage) {
       Member: 5500,
       "Non Member": 6500,
       "Post Graduate": 4500,
+      "Trade Delegate": 10000,
     },
 
     early: {
       Member: 6500,
       "Non Member": 7500,
       "Post Graduate": 5000,
+      "Trade Delegate": 10000,
     },
 
     regular: {
       Member: 7500,
       "Non Member": 8500,
       "Post Graduate": 6000,
+      "Trade Delegate": 10000,
     },
 
     late: {
       Member: 8500,
       "Non Member": 9500,
       "Post Graduate": 7000,
+      "Trade Delegate": 10000,
     },
 
     spot: {
       Member: 10000,
       "Non Member": 11000,
       "Post Graduate": 8000,
+      "Trade Delegate": 10000,
     },
   };
 
@@ -81,6 +86,30 @@ function getBaseFee(category, stage) {
   }
 
   return fee;
+}
+
+function getInternationalFee(stage) {
+  const fees = {
+    superEarly: 120,
+    early: 130,
+    regular: 150,
+    late: 180,
+    spot: 200,
+  };
+
+  return fees[stage];
+}
+
+function getAccompanyingPersonFee(stage) {
+  const fees = {
+    superEarly: 4500,
+    early: 5000,
+    regular: 6000,
+    late: 7000,
+    spot: 8000,
+  };
+
+  return fees[stage];
 }
 
 
@@ -111,28 +140,20 @@ export default async function handler(req, res) {
     // 2. Get category fee
     // -----------------------------
 
-    let baseFee = getBaseFee(
-      category,
-      stage
-    );
-
-
-    // -----------------------------
-    // 3. Add accompanying person
-    // -----------------------------
-
-    if (accompanyingPerson === "Yes") {
-      baseFee += 5500;
-    }
+    const isInternational = category === "International Delegate" && accompanyingPerson !== "Yes";
+    const currency = isInternational ? "USD" : "INR";
+    const baseFee = accompanyingPerson === "Yes"
+      ? getAccompanyingPersonFee(stage)
+      : isInternational
+        ? getInternationalFee(stage)
+        : getBaseFee(category, stage);
 
 
     // -----------------------------
     // 4. Add 18% GST
     // -----------------------------
 
-    const gst = Math.round(
-      baseFee * GST_RATE
-    );
+    const gst = isInternational ? 0 : Math.round(baseFee * GST_RATE);
 
     const totalAmount = baseFee + gst;
 
@@ -143,7 +164,7 @@ export default async function handler(req, res) {
 
     const order = await razorpay.orders.create({
       amount: totalAmount * 100,
-      currency: "INR",
+      currency,
       receipt: `kuacon_${Date.now()}`,
     });
 
