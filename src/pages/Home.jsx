@@ -14,6 +14,8 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 6500,
                 'Post Graduates': 4500,
                 'Accompanying Person': 4500,
+                'Trade Delegate': 10000,
+                'International Delegate': { amount: 120, currency: 'USD' },
             },
         },
         {
@@ -24,6 +26,8 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 7500,
                 'Post Graduates': 5000,
                 'Accompanying Person': 5000,
+                'Trade Delegate': 10000,
+                'International Delegate': { amount: 130, currency: 'USD' },
             },
         },
         {
@@ -34,6 +38,8 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 8500,
                 'Post Graduates': 6000,
                 'Accompanying Person': 6000,
+                'Trade Delegate': 10000,
+                'International Delegate': { amount: 150, currency: 'USD' },
             },
         },
         {
@@ -44,6 +50,8 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 9500,
                 'Post Graduates': 7000,
                 'Accompanying Person': 7000,
+                'Trade Delegate': 10000,
+                'International Delegate': { amount: 180, currency: 'USD' },
             },
         },
         {
@@ -54,6 +62,8 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 11000,
                 'Post Graduates': 8000,
                 'Accompanying Person': 8000,
+                'Trade Delegate': 10000,
+                'International Delegate': { amount: 200, currency: 'USD' },
             },
         },
     ]
@@ -166,7 +176,7 @@ export default function Home({ onNavigate }) {
                     <h2>Registration Fees for KUACON 2027</h2>
 
                     <p>
-                        All fees are subject to an additional 18% GST.
+                        INR fees include an additional 18% GST; international delegate fees are in USD.
                     </p>
 
                 </div>
@@ -206,8 +216,11 @@ export default function Home({ onNavigate }) {
                            {Object.entries(table.prices).map(
   ([category, price]) => {
 
-    const gstAmount = price * 0.18
-    const total = price + gstAmount
+    const amount = typeof price === 'number' ? price : price.amount
+    const isInternational = typeof price !== 'number'
+    const gstAmount = isInternational ? 0 : amount * 0.18
+    const total = amount + gstAmount
+    const formatPrice = (value) => isInternational ? `$${value.toLocaleString('en-IN')} USD` : `₹${value.toLocaleString('en-IN')}`
 
     return (
       <div
@@ -220,11 +233,11 @@ export default function Home({ onNavigate }) {
         </div>
 
         <div className="home-registration-price">
-          ₹{price.toLocaleString('en-IN')}
+          {formatPrice(amount)}
         </div>
 
         <div className="home-registration-price gst-price">
-          ₹{total.toLocaleString('en-IN')}
+          {isInternational ? 'GST not applicable' : formatPrice(total)}
         </div>
 
       </div>
