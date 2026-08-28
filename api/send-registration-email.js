@@ -6,6 +6,20 @@ const resend = new Resend(
 
 const ORGANIZER_EMAIL = 'kuacon2027@gmail.com'
 
+function isAbove75(dateOfBirth) {
+  if (!dateOfBirth) return false
+
+  const birthDate = new Date(`${dateOfBirth}T00:00:00`)
+  if (Number.isNaN(birthDate.getTime())) return false
+
+  const today = new Date()
+  let age = today.getFullYear() - birthDate.getFullYear()
+  const birthdayPassed = today.getMonth() > birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate())
+
+  if (!birthdayPassed) age -= 1
+  return age > 75
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -20,9 +34,12 @@ export default async function handler(req, res) {
       paymentId,
       orderId,
       amount,
+      freeRegistration: requestedFreeRegistration = false,
     } = req.body || {}
 
-    if (!form || !paymentId || !orderId) {
+    const freeRegistration = requestedFreeRegistration && form?.category === 'Member' && form?.accompanyingPerson !== 'Yes' && isAbove75(form?.dateOfBirth)
+
+    if (!form || (!freeRegistration && (!paymentId || !orderId))) {
       return res.status(400).json({
         success: false,
         error: 'Missing registration or payment details',
@@ -31,6 +48,7 @@ export default async function handler(req, res) {
 
     const {
       name,
+      dateOfBirth,
       email,
       medicalCouncilNumber,
       medicalCouncilState,
@@ -85,6 +103,11 @@ export default async function handler(req, res) {
           </p>
 
           <p>
+            <strong>Date of Birth:</strong>
+            ${dateOfBirth}
+          </p>
+
+          <p>
             <strong>Medical Council Number:</strong>
             ${medicalCouncilNumber}
           </p>
@@ -136,22 +159,16 @@ export default async function handler(req, res) {
 
           <hr />
 
-          <h3>Payment Details</h3>
+          <h3>${freeRegistration ? 'Registration Details' : 'Payment Details'}</h3>
 
           <p>
-            <strong>Amount Paid:</strong>
-            ₹${Number(amount).toLocaleString('en-IN')}
+            <strong>${freeRegistration ? 'Fee:' : 'Amount Paid:'}</strong>
+            ${freeRegistration ? 'No payment required (KUA member above 75 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
           </p>
 
-          <p>
-            <strong>Payment ID:</strong>
-            ${paymentId}
-          </p>
+          ${!freeRegistration ? `<p><strong>Payment ID:</strong> ${paymentId}</p>` : ''}
 
-          <p>
-            <strong>Order ID:</strong>
-            ${orderId}
-          </p>
+          ${!freeRegistration ? `<p><strong>Order ID:</strong> ${orderId}</p>` : ''}
 
           <hr />
 
@@ -201,22 +218,16 @@ export default async function handler(req, res) {
             ${accompanyingPerson}
           </p>
 
-          <h3>Payment Details</h3>
+          <h3>${freeRegistration ? 'Registration Details' : 'Payment Details'}</h3>
 
           <p>
-            <strong>Amount Paid:</strong>
-            ₹${Number(amount).toLocaleString('en-IN')}
+            <strong>${freeRegistration ? 'Fee:' : 'Amount Paid:'}</strong>
+            ${freeRegistration ? 'No payment required (KUA member above 75 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
           </p>
 
-          <p>
-            <strong>Payment ID:</strong>
-            ${paymentId}
-          </p>
+          ${!freeRegistration ? `<p><strong>Payment ID:</strong> ${paymentId}</p>` : ''}
 
-          <p>
-            <strong>Order ID:</strong>
-            ${orderId}
-          </p>
+          ${!freeRegistration ? `<p><strong>Order ID:</strong> ${orderId}</p>` : ''}
 
           <hr />
 

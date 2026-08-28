@@ -50,6 +50,7 @@ function TwoColumnFeeTable({ title, deadline, rows }) {
 
 export default function Registration() {
     const [form, setForm] = useState({ name: '', dateOfBirth: '', medicalCouncilNumber: '', email: '', medicalCouncilState: '', whatsapp: '', category: '', membershipNumber: '', gender: '', accompanyingPerson: '', hospital: '', city: '', designation: '', mealPreference: '', state: '' })
+    const freeRegistration = form.category === 'Member' && form.accompanyingPerson !== 'Yes' && isAbove75(form.dateOfBirth)
     const handleChange = ({ target: { name, value } }) => setForm((current) => ({ ...current, [name]: value }))
     //   const handleSubmit = (event) => { event.preventDefault(); alert('Registration details saved. Payment integration will be enabled shortly.') }
 
@@ -57,6 +58,22 @@ export default function Registration() {
         event.preventDefault()
 
         try {
+            if (freeRegistration) {
+                const emailResponse = await fetch('/api/send-registration-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ form, freeRegistration: true }),
+                })
+                const emailData = await emailResponse.json()
+
+                if (!emailResponse.ok || !emailData.success) {
+                    throw new Error(emailData.error || 'Unable to submit registration')
+                }
+
+                alert(`Registration submitted successfully. Confirmation email sent to ${form.email}`)
+                return
+            }
+
             // Ask the server to create the Razorpay order
             const orderResponse = await fetch('/api/create-order', {
                 method: 'POST',
@@ -300,7 +317,7 @@ export default function Registration() {
                     <Field label="Meal Preference"><Select name="mealPreference" value={form.mealPreference} onChange={handleChange} options={['Vegetarian', 'Non-Vegetarian']} /></Field>
                     <Field label="Select State"><Select name="state" value={form.state} onChange={handleChange} options={indianStates} /></Field>
                 </div>
-                <div className="registration-submit"><button className="pill-btn" type="submit">Submit &amp; Pay</button></div>
+                <div className="registration-submit"><button className="pill-btn" type="submit">{freeRegistration ? 'Submit' : 'Submit & Pay'}</button></div>
             </form>
             <section className="registration-fees">
                 <header><p>Registrations are open!</p><h2>Registration fees for KUACON 2027</h2><span>INR fees include an additional 18% GST; international delegate fees are in USD.</span></header>
