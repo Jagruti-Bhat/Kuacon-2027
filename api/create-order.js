@@ -1,10 +1,5 @@
 const Razorpay = require("razorpay");
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
-
 const GST_RATE = 0.18;
 
 // Conference timezone: India
@@ -122,6 +117,19 @@ export default async function handler(req, res) {
   }
 
   try {
+    const keyId = process.env.RAZORPAY_KEY_ID?.trim();
+    const keySecret = process.env.RAZORPAY_KEY_SECRET?.trim();
+
+    if (!keyId || !keySecret) {
+      return res.status(500).json({
+        error: "Razorpay credentials are not configured on the server",
+      });
+    }
+
+    const razorpay = new Razorpay({
+      key_id: keyId,
+      key_secret: keySecret,
+    });
 
     const {
       category,
