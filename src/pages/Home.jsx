@@ -50,7 +50,7 @@ export default function Home({ onNavigate }) {
             title: 'Spot Registration',
             period: '16th October 2027 onwards',
             prices: {
-                'KUA Members': 1000,
+                'KUA Members': 10000,
                 'Non-KUA Members': 11000,
                 'Post Graduates': 8000,
                 'Accompanying Person': 8000,
@@ -69,11 +69,11 @@ export default function Home({ onNavigate }) {
                     <h1>KUACON 2027</h1>
 
                     <p className="lead">
-                        Annual Conference of the Karnataka Urology Association
+                        32nd Annual Conference of the Karnataka Urology Association
                     </p>
 
                     <p className="meta">
-                        5–8 November 2027 · Omkar Jungle Resort & Spa, Sirsi
+                        5–7 November 2027 · Omkar Jungle Resort & Spa, Sirsi
                     </p>
 
                     <div className="hero-cta">

@@ -6,7 +6,7 @@ const kuaCouncil = [
     name: 'Dr. Gajanan Bhat',
     initials: 'GB',
     image: '/committee/gajanan-bhat.jpg',
-    roles: ['President Elect, KUA', 'Organizing Secretary, KUACON 2027']
+    roles: ['President KUA', 'Organizing Secretary, KUACON 2027']
   },
   { name: 'Name to be added', initials: '+', image: '', roles: ['Council designation'] },
   { name: 'Name to be added', initials: '+', image: '', roles: ['Council designation'] },

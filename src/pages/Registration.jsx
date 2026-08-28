@@ -5,7 +5,7 @@ const designations = ['Consultant', 'Professor', 'Associate Professor', 'Assista
 const superEarlyFees = [['KUA Members', 5500], ['Non-KUA Members', 6500], ['Post Graduates', 4500], ['Accompanying Person', 4500]]
 const earlyFees = [['KUA Members', 6500], ['Non-KUA Members', 7500], ['Post Graduates', 5000], ['Accompanying Person', 5000]]
 const standardFees = [
-    ['KUA Members', 7500, 8500, 1000],
+    ['KUA Members', 7500, 8500, 10000],
     ['Non-KUA Members', 8500, 9500, 11000],
     ['Post Graduates', 6000, 7000, 8000],
     ['Accompanying Person', 6000, 7000, 8000]
