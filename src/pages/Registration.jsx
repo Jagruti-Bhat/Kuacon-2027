@@ -295,7 +295,7 @@ export default function Registration() {
                 <div className="registration-column">
                     <Field label="Enter Full Name"><input name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" required /></Field>
                     <Field label="Date of Birth"><input type="date" name="dateOfBirth" value={form.dateOfBirth} onChange={handleChange} max={new Date().toISOString().split('T')[0]} required /></Field>
-                    {isAbove75(form.dateOfBirth) && <p className="age-notice">You are above 75 years old. KUA members above 75 have free registration.</p>}
+                    {isAbove75(form.dateOfBirth) && <p className="age-notice">You are above 75 years old. KUA members have free registration. An accompanying person must pay the accompanying-person fee.</p>}
                     <Field label="Enter Email ID"><input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Enter email ID" required /></Field>
                     <Field label="Enter WhatsApp Number"><input type="tel" name="whatsapp" value={form.whatsapp} onChange={handleChange} placeholder="Enter mobile number" required /></Field>
                     <Field label="Gender"><Select name="gender" value={form.gender} onChange={handleChange} options={['Male', 'Female', 'Other', 'Prefer not to say']} /></Field>
@@ -317,7 +317,7 @@ export default function Registration() {
                     <Field label="Meal Preference"><Select name="mealPreference" value={form.mealPreference} onChange={handleChange} options={['Vegetarian', 'Non-Vegetarian']} /></Field>
                     <Field label="Select State"><Select name="state" value={form.state} onChange={handleChange} options={indianStates} /></Field>
                 </div>
-                <div className="registration-submit"><button className="pill-btn" type="submit">{freeRegistration ? 'Submit' : 'Submit & Pay'}</button></div>
+                <div className="registration-submit"><button className="pill-btn" type="submit">{freeRegistration ? 'Submit' : form.category === 'Member' && isAbove75(form.dateOfBirth) ? 'Submit & Pay for Accompanying Person' : 'Submit & Pay'}</button></div>
             </form>
             <section className="registration-fees">
                 <header><p>Registrations are open!</p><h2>Registration fees for KUACON 2027</h2><span>INR fees include an additional 18% GST; international delegate fees are in USD.</span></header>
