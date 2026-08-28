@@ -68,7 +68,7 @@ function getBaseFee(category, stage) {
     },
 
     spot: {
-      Member: 1000,
+      Member: 10000,
       "Non Member": 11000,
       "Post Graduate": 8000,
     },
