@@ -14,7 +14,7 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 6500,
                 'Post Graduates': 4500,
                 'Accompanying Person': 4500,
-                'Trade Delegate': 10000,
+                'Trade Delegate': 11000,
                 'International Delegate': { amount: 120, currency: 'USD' },
             },
         },
@@ -26,7 +26,7 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 7500,
                 'Post Graduates': 5000,
                 'Accompanying Person': 5000,
-                'Trade Delegate': 10000,
+                'Trade Delegate': 11000,
                 'International Delegate': { amount: 130, currency: 'USD' },
             },
         },
@@ -38,7 +38,7 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 8500,
                 'Post Graduates': 6000,
                 'Accompanying Person': 6000,
-                'Trade Delegate': 10000,
+                'Trade Delegate': 11000,
                 'International Delegate': { amount: 150, currency: 'USD' },
             },
         },
@@ -50,7 +50,7 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 9500,
                 'Post Graduates': 7000,
                 'Accompanying Person': 7000,
-                'Trade Delegate': 10000,
+                'Trade Delegate': 11000,
                 'International Delegate': { amount: 180, currency: 'USD' },
             },
         },
@@ -62,7 +62,7 @@ export default function Home({ onNavigate }) {
                 'Non-KUA Members': 11000,
                 'Post Graduates': 8000,
                 'Accompanying Person': 8000,
-                'Trade Delegate': 10000,
+                'Trade Delegate': 11000,
                 'International Delegate': { amount: 200, currency: 'USD' },
             },
         },
@@ -257,7 +257,7 @@ export default function Home({ onNavigate }) {
                 <div className="home-registration-notes">
 
                     <p>
-                        • KUA members above 75 years of age will have free
+                        • KUA members above 70 years of age will have free
                         registration but need to fill the registration form for
                         logistic purposes.
                     </p>

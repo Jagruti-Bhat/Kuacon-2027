@@ -42,35 +42,35 @@ function getBaseFee(category, stage) {
       Member: 5500,
       "Non Member": 6500,
       "Post Graduate": 4500,
-      "Trade Delegate": 10000,
+      "Trade Delegate": 11000,
     },
 
     early: {
       Member: 6500,
       "Non Member": 7500,
       "Post Graduate": 5000,
-      "Trade Delegate": 10000,
+      "Trade Delegate": 11000,
     },
 
     regular: {
       Member: 7500,
       "Non Member": 8500,
       "Post Graduate": 6000,
-      "Trade Delegate": 10000,
+      "Trade Delegate": 11000,
     },
 
     late: {
       Member: 8500,
       "Non Member": 9500,
       "Post Graduate": 7000,
-      "Trade Delegate": 10000,
+      "Trade Delegate": 11000,
     },
 
     spot: {
       Member: 10000,
       "Non Member": 11000,
       "Post Graduate": 8000,
-      "Trade Delegate": 10000,
+      "Trade Delegate": 11000,
     },
   };
 
@@ -199,6 +199,7 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
+    console.log("ERR", error)
 
     console.error(
       "RAZORPAY ORDER ERROR:",

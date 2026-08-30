@@ -17,7 +17,7 @@ function isAbove75(dateOfBirth) {
   const birthdayPassed = today.getMonth() > birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate())
 
   if (!birthdayPassed) age -= 1
-  return age > 75
+  return age > 70
 }
 
 export default async function handler(req, res) {
@@ -163,7 +163,7 @@ export default async function handler(req, res) {
 
           <p>
             <strong>${freeRegistration ? 'Fee:' : 'Amount Paid:'}</strong>
-            ${freeRegistration ? 'No payment required (KUA member above 75 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
+            ${freeRegistration ? 'No payment required (KUA member above 70 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
           </p>
 
           ${!freeRegistration ? `<p><strong>Payment ID:</strong> ${paymentId}</p>` : ''}
@@ -222,7 +222,7 @@ export default async function handler(req, res) {
 
           <p>
             <strong>${freeRegistration ? 'Fee:' : 'Amount Paid:'}</strong>
-            ${freeRegistration ? 'No payment required (KUA member above 75 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
+            ${freeRegistration ? 'No payment required (KUA member above 70 years)' : `₹${Number(amount).toLocaleString('en-IN')}`}
           </p>
 
           ${!freeRegistration ? `<p><strong>Payment ID:</strong> ${paymentId}</p>` : ''}

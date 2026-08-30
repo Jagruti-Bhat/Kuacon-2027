@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 
 const indianStates = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
 const designations = ['Consultant', 'Professor', 'Associate Professor', 'Assistant Professor', 'Senior Resident', 'Tutor', 'Post Graduate', 'Other']
-const superEarlyFees = [['KUA Members', 5500], ['Non-KUA Members', 6500], ['Post Graduates', 4500], ['Accompanying Person', 4500], ['Trade Delegate', 10000], ['International Delegate', { amount: 120, currency: 'USD' }]]
-const earlyFees = [['KUA Members', 6500], ['Non-KUA Members', 7500], ['Post Graduates', 5000], ['Accompanying Person', 5000], ['Trade Delegate', 10000], ['International Delegate', { amount: 130, currency: 'USD' }]]
+const superEarlyFees = [['KUA Members', 5500], ['Non-KUA Members', 6500], ['Post Graduates', 4500], ['Accompanying Person', 4500], ['Trade Delegate', 11000], ['International Delegate', { amount: 120, currency: 'USD' }]]
+const earlyFees = [['KUA Members', 6500], ['Non-KUA Members', 7500], ['Post Graduates', 5000], ['Accompanying Person', 5000], ['Trade Delegate', 11000], ['International Delegate', { amount: 130, currency: 'USD' }]]
 const standardFees = [
     ['KUA Members', 7500, 8500, 10000],
     ['Non-KUA Members', 8500, 9500, 11000],
     ['Post Graduates', 6000, 7000, 8000],
     ['Accompanying Person', 6000, 7000, 8000],
-    ['Trade Delegate', 10000, 10000, 10000],
+    ['Trade Delegate', 11000, 11000, 11000],
     ['International Delegate', { amount: 150, currency: 'USD' }, { amount: 180, currency: 'USD' }, { amount: 200, currency: 'USD' }]
 ]
 const formatCurrency = (amount) => `₹${amount.toLocaleString('en-IN')}`
@@ -25,7 +25,7 @@ const isAbove75 = (dateOfBirth) => {
     const birthdayPassed = today.getMonth() > birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate())
 
     if (!birthdayPassed) age -= 1
-    return age > 75
+    return age > 70
 }
 
 function Field({ label, children }) {
@@ -85,8 +85,11 @@ export default function Registration() {
                     accompanyingPerson: form.accompanyingPerson,
                 }),
             })
+            console.log("orderResponse", orderResponse)
 
-            const orderData = await orderResponse.json()
+            const orderData = await orderResponse.json();
+
+            console.log("ERR", orderData)
 
             if (!orderResponse.ok) {
                 throw new Error(
@@ -180,6 +183,60 @@ export default function Registration() {
                                 'Payment verification failed'
                             )
                         }
+
+                        // -----------------------------
+                        // Save registration to Google Sheet
+                        // -----------------------------
+
+                        const saveResponse = await fetch(
+                            '/api/save-registration',
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+
+                                body: JSON.stringify({
+                                    form,
+
+                                    paymentId:
+                                        verifyData.paymentId,
+
+                                    orderId:
+                                        verifyData.orderId,
+
+                                    amount:
+                                        orderData.totalAmount,
+                                }),
+                            }
+                        )
+
+                        const saveData =
+                            await saveResponse.json()
+
+                        if (!saveResponse.ok || !saveData.success) {
+                            console.error(
+                                'REGISTRATION SAVE ERROR:',
+                                saveData
+                            )
+
+                            // Payment has already been verified.
+                            // Don't tell the user that payment failed.
+
+                            alert(
+                                `Payment successful, but we could not save your registration.\n\n` +
+                                `Payment ID: ${verifyData.paymentId}\n\n` +
+                                `Please contact the KUACON organizing committee.`
+                            )
+
+                            return
+                        }
+
+                        console.log(
+                            'Registration ID:',
+                            saveData.registrationId
+                        )
 
 
                         // -----------------------------
@@ -295,7 +352,7 @@ export default function Registration() {
                 <div className="registration-column">
                     <Field label="Enter Full Name"><input name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" required /></Field>
                     <Field label="Date of Birth"><input type="date" name="dateOfBirth" value={form.dateOfBirth} onChange={handleChange} max={new Date().toISOString().split('T')[0]} required /></Field>
-                    {isAbove75(form.dateOfBirth) && <p className="age-notice">You are above 75 years old. KUA members have free registration. An accompanying person must pay the accompanying-person fee.</p>}
+                    {isAbove75(form.dateOfBirth) && <p className="age-notice">You are above 70 years old. KUA members have free registration. An accompanying person must pay the accompanying-person fee.</p>}
                     <Field label="Enter Email ID"><input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Enter email ID" required /></Field>
                     <Field label="Enter WhatsApp Number"><input type="tel" name="whatsapp" value={form.whatsapp} onChange={handleChange} placeholder="Enter mobile number" required /></Field>
                     <Field label="Gender"><Select name="gender" value={form.gender} onChange={handleChange} options={['Male', 'Female', 'Other', 'Prefer not to say']} /></Field>
@@ -329,7 +386,7 @@ export default function Registration() {
                         <tbody>{standardFees.map(([category, ...amounts]) => <tr key={category}><th>{category}</th>{amounts.map((amount, index) => <td key={`${category}-${index}`}><span>{formatFee(amount)}</span><small>{feeWithGst(amount)}{typeof amount === 'number' && ' incl. GST'}</small></td>)}</tr>)}</tbody>
                     </table></div>
                 </section>
-                <ul className="fee-notes"><li>KUA Members above 75 years of age have free registration, but must complete the registration form for logistical purposes.</li><li>Children above 10 years will be charged as an accompanying person.</li></ul>
+                <ul className="fee-notes"><li>KUA Members above 70 years of age have free registration, but must complete the registration form for logistical purposes.</li><li>Children above 10 years will be charged as an accompanying person.</li></ul>
             </section>
         </section>
     )
