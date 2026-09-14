@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import kuaMembers from "../data/kuaMembers.json";
+import usiBenevolentMembers from '../data/usiBenevolentMembers.json';
 
 const indianStates = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal']
 const designations = ['Consultant', 'Professor', 'Associate Professor', 'Assistant Professor', 'Senior Resident', 'Tutor', 'Post Graduate', 'Other']
@@ -28,6 +30,61 @@ const isAbove75 = (dateOfBirth) => {
     return age > 70
 }
 
+const normalizeEmail = (email) =>
+    String(email || '').trim().toLowerCase()
+
+const findUsiMember = (email) => {
+    const normalizedEmail = normalizeEmail(email)
+
+    return usiBenevolentMembers.find((member) => {
+        const memberEmail = normalizeEmail(member['Email address'])
+
+        return normalizedEmail && memberEmail === normalizedEmail
+    })
+}
+
+const normalizeName = (name) => {
+    return name
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[^\p{L}\p{N}]/gu, '')
+}
+
+const findKuaMember = (name) => {
+    if (!name.trim()) {
+        return {
+            status: 'empty',
+            member: null
+        }
+    }
+
+    const normalizedName = normalizeName(name)
+
+    const matches = kuaMembers.filter(
+        (member) =>
+            normalizeName(member.name) === normalizedName
+    )
+
+    if (matches.length === 0) {
+        return {
+            status: 'not-found',
+            member: null
+        }
+    }
+
+    if (matches.length > 1) {
+        return {
+            status: 'multiple',
+            member: null
+        }
+    }
+
+    return {
+        status: 'found',
+        member: matches[0]
+    }
+}
+
 function Field({ label, children }) {
     return <label className="registration-field"><span>{label}</span>{children}</label>
 }
@@ -49,15 +106,176 @@ function TwoColumnFeeTable({ title, deadline, rows }) {
 }
 
 export default function Registration() {
-    const [form, setForm] = useState({ name: '', dateOfBirth: '', medicalCouncilNumber: '', email: '', medicalCouncilState: '', whatsapp: '', category: '', membershipNumber: '', gender: '', accompanyingPerson: '', hospital: '', city: '', designation: '', mealPreference: '', state: '' })
+    const [form, setForm] = useState({ name: '', dateOfBirth: '', medicalCouncilNumber: '', email: '', medicalCouncilState: '', whatsapp: '', category: '', membershipNumber: '', gender: '', accompanyingPerson: '', hospital: '', city: '', designation: '', mealPreference: '', state: '', usiBenevolentFund: '', })
+    const [memberStatus, setMemberStatus] = useState('empty');
+    const [usiMemberStatus, setUsiMemberStatus] = useState('empty');
     const freeRegistration = form.category === 'Member' && form.accompanyingPerson !== 'Yes' && isAbove75(form.dateOfBirth)
-    const handleChange = ({ target: { name, value } }) => setForm((current) => ({ ...current, [name]: value }))
+    // const handleChange = ({ target: { name, value } }) => setForm((current) => ({ ...current, [name]: value }))
     //   const handleSubmit = (event) => { event.preventDefault(); alert('Registration details saved. Payment integration will be enabled shortly.') }
+
+
+    const handleChange = ({ target: { name, value } }) => {
+
+        if (name === 'name') {
+            const kuaResult =
+                form.category === 'Member'
+                    ? findKuaMember(value)
+                    : null
+
+            const usiResult =
+                form.usiBenevolentFund === 'Yes'
+                    ? findUsiMember(value)
+                    : null
+
+
+            setMemberStatus(kuaResult ? kuaResult.status : 'empty')
+
+            setUsiMemberStatus(
+                form.usiBenevolentFund === 'Yes'
+                    ? usiResult
+                        ? 'found'
+                        : value.trim()
+                            ? 'not-found'
+                            : 'empty'
+                    : 'empty'
+            )
+
+            setForm((current) => ({
+                ...current,
+                name: value,
+
+                membershipNumber:
+                    kuaResult?.status === 'found'
+                        ? kuaResult.member.kuaId
+                        : current.category === 'Member'
+                            ? ''
+                            : current.membershipNumber,
+            }))
+
+            return
+        }
+
+
+        // User is changing category
+        if (name === 'category') {
+
+            if (value === 'Member') {
+
+                const result = findKuaMember(form.name)
+
+                setMemberStatus(result.status)
+
+                if (result.status === 'found') {
+
+                    setForm((current) => ({
+                        ...current,
+                        category: value,
+                        membershipNumber: result.member.kuaId
+                    }))
+
+                } else {
+
+                    setForm((current) => ({
+                        ...current,
+                        category: value,
+                        membershipNumber: ''
+                    }))
+                }
+
+            } else {
+
+                // Clear membership information
+                // when user is no longer a KUA Member
+                setMemberStatus('empty')
+
+                setForm((current) => ({
+                    ...current,
+                    category: value,
+                    membershipNumber: ''
+                }))
+            }
+
+            return
+        }
+
+        if (name === 'usiBenevolentFund') {
+    if (value === 'Yes') {
+        const result = findUsiMember(form.email)
+
+        setUsiMemberStatus(
+            result
+                ? 'found'
+                : form.email.trim()
+                    ? 'not-found'
+                    : 'empty'
+        )
+    } else {
+        setUsiMemberStatus('empty')
+    }
+}
+
+        if (name === 'email') {
+            if (form.usiBenevolentFund === 'Yes') {
+                const result = findUsiMember(value, form.whatsapp)
+
+                setUsiMemberStatus(
+                    result
+                        ? 'found'
+                        : value.trim() || form.whatsapp.trim()
+                            ? 'not-found'
+                            : 'empty'
+                )
+            }
+        }
+
+
+
+        // All other fields behave exactly as before
+        setForm((current) => ({
+            ...current,
+            [name]: value
+        }))
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
 
         try {
+            if (form.usiBenevolentFund === 'Yes') {
+                const usiMember = findUsiMember(form.name)
+
+                if (!usiMember) {
+                    alert(
+                        'USI Benevolent Fund membership could not be verified. Please check the name entered.'
+                    )
+                    return
+                }
+            }
+            if (form.category === 'Member') {
+
+                const result = findKuaMember(form.name)
+
+                if (result.status === 'empty') {
+                    alert('Please enter your full name.')
+                    return
+                }
+
+                if (result.status === 'not-found') {
+                    alert(
+                        'Your name could not be found in the KUA full-member list. Please check the name you entered.'
+                    )
+                    return
+                }
+
+                if (result.status === 'multiple') {
+                    alert(
+                        'Multiple KUA members were found with this name. Please contact the KUACON organizing committee for assistance.'
+                    )
+                    return
+                }
+
+                form.membershipNumber = result.member.kuaId
+            }
             if (freeRegistration) {
                 const emailResponse = await fetch('/api/send-registration-email', {
                     method: 'POST',
@@ -83,6 +301,7 @@ export default function Registration() {
                 body: JSON.stringify({
                     category: form.category,
                     accompanyingPerson: form.accompanyingPerson,
+                    usiBenevolentFund: form.usiBenevolentFund,
                 }),
             })
             console.log("orderResponse", orderResponse)
@@ -345,6 +564,9 @@ export default function Registration() {
         }
     }
 
+    console.log({ usiMemberStatus });
+
+
     return (
         <section className="registration-page">
             <h1>KUACON 2027 Registration</h1>
@@ -362,11 +584,86 @@ export default function Registration() {
                 <div className="registration-column">
                     <Field label="Enter Medical Council Number"><input name="medicalCouncilNumber" value={form.medicalCouncilNumber} onChange={handleChange} placeholder="Enter medical council number" required /></Field>
                     <Field label="Select Medical Council State"><Select name="medicalCouncilState" value={form.medicalCouncilState} onChange={handleChange} options={indianStates} /></Field>
+                    <Field label="USI Benevolent Fund Member">
+                        <div className="usi-radio-group">
+                            <label className="usi-radio-option">
+                                <input
+                                    type="radio"
+                                    name="usiBenevolentFund"
+                                    value="Yes"
+                                    checked={form.usiBenevolentFund === 'Yes'}
+                                    onChange={handleChange}
+                                />
+                                <span>Yes</span>
+                            </label>
+
+                            <label className="usi-radio-option">
+                                <input
+                                    type="radio"
+                                    name="usiBenevolentFund"
+                                    value="No"
+                                    checked={form.usiBenevolentFund === 'No'}
+                                    onChange={handleChange}
+                                />
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </Field>
+                    {form.usiBenevolentFund === 'Yes' && (
+                        <div className="usi-membership-status">
+                            {usiMemberStatus === 'found' && (
+                                <p className="membership-success">
+                                    ✓ USI Benevolent Fund membership verified
+                                </p>
+                            )}
+
+                            {usiMemberStatus === 'not-found' && (
+                                <p className="membership-error">
+                                    ✕ No USI Benevolent Fund member found with the entered email address.
+                                </p>
+                            )}
+                        </div>
+                    )}
                     <Field label="Choose the Category"><Select name="category" value={form.category} onChange={handleChange} options={['Member', 'Non Member', 'Post Graduate', 'Trade Delegate', 'International Delegate']} /></Field>
                     {form.category === 'Member' && (
                         <div className="membership-field">
-                            <p>Enter State Membership Number</p>
-                            <Field label="Membership Number"><input name="membershipNumber" value={form.membershipNumber} onChange={handleChange} placeholder="Enter registration number" required /></Field>
+
+                            <p>KUA Membership Number</p>
+
+                            <Field label="Membership Number">
+                                <input
+                                    name="membershipNumber"
+                                    value={form.membershipNumber}
+                                    placeholder={
+                                        memberStatus === 'found'
+                                            ? 'KUA ID found'
+                                            : 'Enter your full name above'
+                                    }
+                                    readOnly
+                                    required
+                                />
+                            </Field>
+
+                            {memberStatus === 'found' && (
+                                <p className="membership-success">
+                                    ✓ KUA member verified
+                                </p>
+                            )}
+
+                            {memberStatus === 'not-found' && (
+                                <p className="membership-error">
+                                    Name not found in the KUA full-member list.
+                                    Please check the name entered above.
+                                </p>
+                            )}
+
+                            {memberStatus === 'multiple' && (
+                                <p className="membership-error">
+                                    Multiple members were found with this name.
+                                    Please contact the KUACON organizing committee.
+                                </p>
+                            )}
+
                         </div>
                     )}
                     <Field label="Accompanying Person"><Select name="accompanyingPerson" value={form.accompanyingPerson} onChange={handleChange} options={['No – Accompanying –', 'Yes']} /></Field>

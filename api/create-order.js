@@ -139,6 +139,7 @@ export default async function handler(req, res) {
     const {
       category,
       accompanyingPerson,
+      usiBenevolentFund,
     } = req.body;
 
 
@@ -168,7 +169,23 @@ export default async function handler(req, res) {
 
     const gst = isInternational ? 0 : Math.round(baseFee * GST_RATE);
 
-    const totalAmount = baseFee + gst;
+    const amountBeforeDiscount = baseFee + gst;
+
+
+    // -----------------------------
+    // 5. Apply USI Benevolent Fund discount
+    // -----------------------------
+
+    const isUsiBenevolentMember =
+      usiBenevolentFund === "Yes" &&
+      category !== "International Delegate";
+
+    const usiDiscount = isUsiBenevolentMember ? 500 : 0;
+
+    const totalAmount = Math.max(
+      0,
+      amountBeforeDiscount - usiDiscount
+    );
 
 
     // -----------------------------
@@ -195,6 +212,7 @@ export default async function handler(req, res) {
 
       baseFee,
       gst,
+      usiDiscount,
       totalAmount,
     });
 

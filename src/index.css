@@ -540,6 +540,34 @@ footer{margin-top:auto}
   margin-top: 32px;
 }
 
+/* USI Benevolent Fund radio buttons */
+.usi-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  height: 61px;
+}
+
+.usi-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.usi-radio-option input[type="radio"] {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
 
 /* =========================================================
    MOBILE RESPONSIVE
