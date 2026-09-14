@@ -604,13 +604,13 @@ export default function Registration() {
                         <div className="usi-membership-status">
                             {usiMemberStatus === 'found' && (
                                 <p className="membership-success">
-                                    ✓ USI Benevolent Fund membership verified
+                                    ✅ USI Benevolent Fund membership verified. You will get a special waiver of Rs.500 off on the total registration amount.
                                 </p>
                             )}
 
                             {usiMemberStatus === 'not-found' && (
                                 <p className="membership-error">
-                                    ✕ No USI Benevolent Fund member found with the entered email address.
+                                    ❎ No USI Benevolent Fund member found with the entered email address.
                                 </p>
                             )}
                         </div>
