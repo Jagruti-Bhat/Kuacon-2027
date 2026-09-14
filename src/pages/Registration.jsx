@@ -450,6 +450,8 @@ export default function Registration() {
                             saveData.registrationId
                         )
 
+                        const registrationId = saveData.registrationId;
+
 
                         // -----------------------------
                         // Send emails
@@ -475,6 +477,7 @@ export default function Registration() {
 
                                     amount:
                                         orderData.totalAmount,
+                                    registrationId
                                 }),
                             }
                         )

@@ -190,6 +190,7 @@ export default async function handler(req, res) {
 
       paymentId,
       orderId,
+      form.usiBenevolentFund || 'No',
     ]
 
     console.log(
@@ -204,7 +205,7 @@ export default async function handler(req, res) {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
 
-      range: `'${SHEET_NAME}'!A:U`,
+      range: `'${SHEET_NAME}'!A:V`,
 
       valueInputOption: 'USER_ENTERED',
 

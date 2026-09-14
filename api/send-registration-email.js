@@ -35,6 +35,7 @@ export default async function handler(req, res) {
       orderId,
       amount,
       freeRegistration: requestedFreeRegistration = false,
+      registrationId,
     } = req.body || {}
 
     const freeRegistration = requestedFreeRegistration && form?.category === 'Member' && form?.accompanyingPerson !== 'Yes' && isAbove75(form?.dateOfBirth)
@@ -79,6 +80,11 @@ export default async function handler(req, res) {
 
         html: `
           <h2>New KUACON 2027 Registration</h2>
+
+          <p>
+            <strong>Registration ID:</strong>
+              ${registrationId}
+          </p>
 
           <h3>Participant Details</h3>
 
@@ -196,6 +202,11 @@ export default async function handler(req, res) {
 
         html: `
           <h2>Registration Successful!</h2>
+
+          <p>
+            <strong>Registration ID:</strong>
+              ${registrationId}
+          </p>
 
           <p>
             Dear ${name},
