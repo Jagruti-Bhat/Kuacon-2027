@@ -241,7 +241,7 @@ export default function Registration() {
 
                 if (!usiMember) {
                     alert(
-                        'USI Benevolent Fund membership could not be verified. Please check the name entered.'
+                        'USI Benevolent Fund membership could not be verified. Please check the email entered.'
                     )
                     return
                 }
