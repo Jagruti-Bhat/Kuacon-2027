@@ -110,34 +110,19 @@ export default function Registration() {
     const [memberStatus, setMemberStatus] = useState('empty');
     const [usiMemberStatus, setUsiMemberStatus] = useState('empty');
     const freeRegistration = form.category === 'Member' && form.accompanyingPerson !== 'Yes' && isAbove75(form.dateOfBirth)
-    // const handleChange = ({ target: { name, value } }) => setForm((current) => ({ ...current, [name]: value }))
-    //   const handleSubmit = (event) => { event.preventDefault(); alert('Registration details saved. Payment integration will be enabled shortly.') }
 
 
     const handleChange = ({ target: { name, value } }) => {
 
+        // User is changing name
         if (name === 'name') {
             const kuaResult =
                 form.category === 'Member'
                     ? findKuaMember(value)
                     : null
 
-            const usiResult =
-                form.usiBenevolentFund === 'Yes'
-                    ? findUsiMember(value)
-                    : null
-
-
-            setMemberStatus(kuaResult ? kuaResult.status : 'empty')
-
-            setUsiMemberStatus(
-                form.usiBenevolentFund === 'Yes'
-                    ? usiResult
-                        ? 'found'
-                        : value.trim()
-                            ? 'not-found'
-                            : 'empty'
-                    : 'empty'
+            setMemberStatus(
+                kuaResult ? kuaResult.status : 'empty'
             )
 
             setForm((current) => ({
@@ -198,36 +183,46 @@ export default function Registration() {
             return
         }
 
+
+        // User is changing USI Benevolent Fund membership
         if (name === 'usiBenevolentFund') {
-    if (value === 'Yes') {
-        const result = findUsiMember(form.email)
 
-        setUsiMemberStatus(
-            result
-                ? 'found'
-                : form.email.trim()
-                    ? 'not-found'
-                    : 'empty'
-        )
-    } else {
-        setUsiMemberStatus('empty')
-    }
-}
+            if (value === 'Yes') {
 
-        if (name === 'email') {
-            if (form.usiBenevolentFund === 'Yes') {
-                const result = findUsiMember(value, form.whatsapp)
+                const result = findUsiMember(form.email)
 
                 setUsiMemberStatus(
                     result
                         ? 'found'
-                        : value.trim() || form.whatsapp.trim()
+                        : form.email.trim()
+                            ? 'not-found'
+                            : 'empty'
+                )
+
+            } else {
+
+                setUsiMemberStatus('empty')
+            }
+        }
+
+
+        // User is changing email
+        // USI verification is based ONLY on email
+        if (name === 'email') {
+
+            if (form.usiBenevolentFund === 'Yes') {
+
+                const result = findUsiMember(value)
+
+                setUsiMemberStatus(
+                    result
+                        ? 'found'
+                        : value.trim()
                             ? 'not-found'
                             : 'empty'
                 )
             }
         }
-
 
 
         // All other fields behave exactly as before
@@ -242,7 +237,7 @@ export default function Registration() {
 
         try {
             if (form.usiBenevolentFund === 'Yes') {
-                const usiMember = findUsiMember(form.name)
+                const usiMember = findUsiMember(form.email)
 
                 if (!usiMember) {
                     alert(
@@ -304,11 +299,9 @@ export default function Registration() {
                     usiBenevolentFund: form.usiBenevolentFund,
                 }),
             })
-            console.log("orderResponse", orderResponse)
 
             const orderData = await orderResponse.json();
 
-            console.log("ERR", orderData)
 
             if (!orderResponse.ok) {
                 throw new Error(
@@ -563,8 +556,6 @@ export default function Registration() {
             )
         }
     }
-
-    console.log({ usiMemberStatus });
 
 
     return (
