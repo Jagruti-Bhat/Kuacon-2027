@@ -70,7 +70,7 @@ export default async function handler(req, res) {
 
     const organizerResult =
       await resend.emails.send({
-        from: 'KUACON 2027 <onboarding@resend.dev>',
+        from: 'KUACON 2027 <registrations@kuacon2027sirsi.in>',
 
         to: [ORGANIZER_EMAIL],
 
