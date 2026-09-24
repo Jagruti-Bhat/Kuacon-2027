@@ -677,7 +677,20 @@ export default function Registration() {
                         <tbody>{standardFees.map(([category, ...amounts]) => <tr key={category}><th>{category}</th>{amounts.map((amount, index) => <td key={`${category}-${index}`}><span>{formatFee(amount)}</span><small>{feeWithGst(amount)}{typeof amount === 'number' && ' incl. GST'}</small></td>)}</tr>)}</tbody>
                     </table></div>
                 </section>
-                <ul className="fee-notes"><li>KUA Members above 70 years of age have free registration, but must complete the registration form for logistical purposes.</li><li>Children above 10 years will be charged as an accompanying person.</li></ul>
+                <ul className="fee-notes">
+                    <li>
+                        KUA Members above 70 years of age have free registration, but must complete the registration form for logistical purposes.
+                    </li>
+                    <li>
+                        Children above 10 years will be charged as an accompanying person.
+                    </li>
+                    <li>
+                        Members of USIBF will get a registration of Rs 500 on registration.
+                    </li>
+                    <li>
+                        The presenters of prize paper/poster session will get registration at the early bird rate irrespective of the date of registration.
+                    </li>
+                    </ul>
             </section>
         </section>
     )
