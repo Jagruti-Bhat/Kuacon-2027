@@ -16,7 +16,8 @@ function getRegistrationStage() {
     day: "2-digit",
   }).format(now);
 
-  if (indiaDate <= "2026-12-31") {
+  // Super Early Bird is available through the final day of KUACON 2026.
+  if (indiaDate <= "2026-10-04") {
     return "superEarly";
   }
 

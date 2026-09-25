@@ -669,7 +669,7 @@ export default function Registration() {
             </form>
             <section className="registration-fees">
                 <header><p>Registrations are open!</p><h2>Registration fees for KUACON 2027</h2><span>INR fees include an additional 18% GST; international delegate fees are in USD.</span></header>
-                <TwoColumnFeeTable title="Super Early Bird" deadline="Till end of KUACON 2026" rows={superEarlyFees} />
+                <TwoColumnFeeTable title="Super Early Bird" deadline="Till end of KUACON 2026 (4th October 2026)" rows={superEarlyFees} />
                 <TwoColumnFeeTable title="Early Bird" deadline="Till 15 May 2027" rows={earlyFees} />
                 <section className="fee-stage">
                     <div className="fee-table-wrap"><table className="fee-table fee-table-wide">

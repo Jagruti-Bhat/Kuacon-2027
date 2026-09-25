@@ -8,7 +8,7 @@ export default function Home({ onNavigate }) {
     const registrationTables = [
         {
             title: 'Super Early Bird',
-            period: 'Till end of KUACON 2026',
+            period: 'Till end of KUACON 2026 (4th October 2026)',
             prices: {
                 'KUA Members': 5500,
                 'Non-KUA Members': 6500,
