@@ -685,7 +685,7 @@ export default function Registration() {
                         Children above 10 years will be charged as an accompanying person.
                     </li>
                     <li>
-                        Members of USIBF will get a registration of Rs 500 on registration.
+                        Members of USIBF will get a refund of Rs 500 on registration.
                     </li>
                     <li>
                         The presenters of prize paper/poster session will get registration at the early bird rate irrespective of the date of registration.
