@@ -108,6 +108,16 @@ function getAccompanyingPersonFee(stage) {
   return fees[stage];
 }
 
+function isEligibleForFreeMemberRegistration(dateOfBirth) {
+  if (!dateOfBirth) return false;
+  const birthDate = new Date(`${dateOfBirth}T00:00:00`);
+  if (Number.isNaN(birthDate.getTime())) return false;
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  if (today.getMonth() < birthDate.getMonth() || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate())) age -= 1;
+  return age > 70;
+}
+
 
 export default async function handler(req, res) {
 
@@ -140,8 +150,18 @@ export default async function handler(req, res) {
     const {
       category,
       accompanyingPerson,
+      accompanyingPersonCount: requestedAccompanyingPersonCount,
+      dateOfBirth,
       usiBenevolentFund,
     } = req.body;
+
+    const accompanyingPersonCount = accompanyingPerson === "Yes"
+      ? Number(requestedAccompanyingPersonCount)
+      : 0;
+
+    if (accompanyingPerson === "Yes" && (!Number.isInteger(accompanyingPersonCount) || accompanyingPersonCount < 1 || accompanyingPersonCount > 10)) {
+      return res.status(400).json({ error: "Enter a number of accompanying persons from 1 to 10" });
+    }
 
 
     // -----------------------------
@@ -155,22 +175,28 @@ export default async function handler(req, res) {
     // 2. Get category fee
     // -----------------------------
 
-    const isInternational = category === "International Delegate" && accompanyingPerson !== "Yes";
+    const isInternational = category === "International Delegate";
+    if (isInternational && accompanyingPersonCount > 0) {
+      return res.status(400).json({ error: "Accompanying persons are not available for International Delegate registrations" });
+    }
     const currency = isInternational ? "USD" : "INR";
-    const baseFee = accompanyingPerson === "Yes"
-      ? getAccompanyingPersonFee(stage)
+    const isFreeSeniorMember = category === "Member" && isEligibleForFreeMemberRegistration(dateOfBirth);
+    const baseFee = isFreeSeniorMember
+      ? 0
       : isInternational
         ? getInternationalFee(stage)
         : getBaseFee(category, stage);
+    const accompanyingPersonBaseFee = getAccompanyingPersonFee(stage) * accompanyingPersonCount;
 
 
     // -----------------------------
     // 4. Add 18% GST
     // -----------------------------
 
-    const gst = isInternational ? 0 : Math.round(baseFee * GST_RATE);
+    const subtotal = baseFee + accompanyingPersonBaseFee;
+    const gst = isInternational ? 0 : Math.round(subtotal * GST_RATE);
 
-    const amountBeforeDiscount = baseFee + gst;
+    const amountBeforeDiscount = subtotal + gst;
 
 
     // -----------------------------
@@ -199,6 +225,8 @@ export default async function handler(req, res) {
       receipt: `kuacon_${Date.now()}`,
     });
 
+    console.log({totalAmount})
+
 
     // -----------------------------
     // 6. Send order information
@@ -212,6 +240,9 @@ export default async function handler(req, res) {
       registrationStage: stage,
 
       baseFee,
+      accompanyingPersonCount,
+      accompanyingPersonBaseFee,
+      subtotal,
       gst,
       usiDiscount,
       totalAmount,

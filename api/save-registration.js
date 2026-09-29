@@ -191,6 +191,7 @@ export default async function handler(req, res) {
       paymentId,
       orderId,
       form.usiBenevolentFund || 'No',
+      form.accompanyingPerson === 'Yes' ? Number(form.accompanyingPersonCount) || 0 : 0,
     ]
 
     console.log(
@@ -205,7 +206,7 @@ export default async function handler(req, res) {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
 
-      range: `'${SHEET_NAME}'!A:V`,
+      range: `'${SHEET_NAME}'!A:W`,
 
       valueInputOption: 'USER_ENTERED',
 

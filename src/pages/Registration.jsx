@@ -106,7 +106,7 @@ function TwoColumnFeeTable({ title, deadline, rows }) {
 }
 
 export default function Registration() {
-    const [form, setForm] = useState({ name: '', dateOfBirth: '', medicalCouncilNumber: '', email: '', medicalCouncilState: '', whatsapp: '', category: '', membershipNumber: '', gender: '', accompanyingPerson: '', hospital: '', city: '', designation: '', mealPreference: '', state: '', usiBenevolentFund: '', })
+    const [form, setForm] = useState({ name: '', dateOfBirth: '', medicalCouncilNumber: '', email: '', medicalCouncilState: '', whatsapp: '', category: '', membershipNumber: '', gender: '', accompanyingPerson: '', accompanyingPersonCount: '', hospital: '', city: '', designation: '', mealPreference: '', state: '', usiBenevolentFund: '', })
     const [memberStatus, setMemberStatus] = useState('empty');
     const [usiMemberStatus, setUsiMemberStatus] = useState('empty');
     const freeRegistration = form.category === 'Member' && form.accompanyingPerson !== 'Yes' && isAbove75(form.dateOfBirth)
@@ -228,7 +228,9 @@ export default function Registration() {
         // All other fields behave exactly as before
         setForm((current) => ({
             ...current,
-            [name]: value
+            [name]: value,
+            ...(name === 'accompanyingPerson' && value === 'Yes' && !current.accompanyingPersonCount ? { accompanyingPersonCount: '1' } : {}),
+            ...(name === 'accompanyingPerson' && value !== 'Yes' ? { accompanyingPersonCount: '' } : {}),
         }))
     }
 
@@ -296,6 +298,8 @@ export default function Registration() {
                 body: JSON.stringify({
                     category: form.category,
                     accompanyingPerson: form.accompanyingPerson,
+                    accompanyingPersonCount: form.accompanyingPerson === 'Yes' ? Number(form.accompanyingPersonCount) : 0,
+                    dateOfBirth: form.dateOfBirth,
                     usiBenevolentFund: form.usiBenevolentFund,
                 }),
             })
@@ -661,6 +665,7 @@ export default function Registration() {
                         </div>
                     )}
                     <Field label="Accompanying Person"><Select name="accompanyingPerson" value={form.accompanyingPerson} onChange={handleChange} options={['No – Accompanying –', 'Yes']} /></Field>
+                    {form.accompanyingPerson === 'Yes' && <Field label="Number of Accompanying Persons"><input type="number" name="accompanyingPersonCount" value={form.accompanyingPersonCount} onChange={handleChange} min="1" max="10" step="1" required /></Field>}
                     <Field label="Enter City"><input name="city" value={form.city} onChange={handleChange} placeholder="Enter city" required /></Field>
                     <Field label="Meal Preference"><Select name="mealPreference" value={form.mealPreference} onChange={handleChange} options={['Vegetarian', 'Non-Vegetarian']} /></Field>
                     <Field label="Select State"><Select name="state" value={form.state} onChange={handleChange} options={indianStates} /></Field>

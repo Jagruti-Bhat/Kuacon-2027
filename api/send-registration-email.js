@@ -138,6 +138,8 @@ export default async function handler(req, res) {
             ${accompanyingPerson}
           </p>
 
+          ${accompanyingPerson === 'Yes' ? `<p><strong>Number of Accompanying Persons:</strong> ${Number(form.accompanyingPersonCount) || 0}</p>` : ''}
+
           <p>
             <strong>Hospital:</strong>
             ${hospital}
@@ -228,6 +230,8 @@ export default async function handler(req, res) {
             <strong>Accompanying Person:</strong>
             ${accompanyingPerson}
           </p>
+
+          ${accompanyingPerson === 'Yes' ? `<p><strong>Number of Accompanying Persons:</strong> ${Number(form.accompanyingPersonCount) || 0}</p>` : ''}
 
           <h3>${freeRegistration ? 'Registration Details' : 'Payment Details'}</h3>
 
