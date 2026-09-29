@@ -1,7 +1,6 @@
 import crypto from "crypto";
 
 export default async function handler(req, res) {
-  console.log('VERIFY PAYMENT FUNCTION CALLED')
 
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -22,12 +21,6 @@ export default async function handler(req, res) {
       razorpay_signature,
     } = body
 
-    console.log('Payment ID:', razorpay_payment_id)
-    console.log('Order ID:', razorpay_order_id)
-    console.log(
-      'Signature received:',
-      !!razorpay_signature
-    )
 
     if (
       !razorpay_payment_id ||
@@ -59,7 +52,6 @@ export default async function handler(req, res) {
     const isValid =
       generatedSignature === razorpay_signature
 
-    console.log('Signature valid:', isValid)
 
     if (!isValid) {
       return res.status(400).json({

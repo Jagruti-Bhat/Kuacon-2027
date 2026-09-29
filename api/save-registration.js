@@ -48,12 +48,6 @@ export default async function handler(req, res) {
     const privateKeyBase64 =
       process.env.GOOGLE_PRIVATE_KEY_BASE64
 
-    console.log('GOOGLE SHEETS ENV CHECK:', {
-      sheetId: !!process.env.GOOGLE_SHEET_ID,
-      serviceAccountEmail: !!clientEmail,
-      privateKey: !!privateKeyBase64,
-    })
-
     if (
       !SPREADSHEET_ID ||
       !clientEmail ||
@@ -194,10 +188,6 @@ export default async function handler(req, res) {
       form.accompanyingPerson === 'Yes' ? Number(form.accompanyingPersonCount) || 0 : 0,
     ]
 
-    console.log(
-      'Saving registration:',
-      registrationId
-    )
 
     // --------------------------------
     // Append to Google Sheet
@@ -217,10 +207,6 @@ export default async function handler(req, res) {
       },
     })
 
-    console.log(
-      'Registration saved successfully:',
-      registrationId
-    )
 
     return res.status(200).json({
       success: true,

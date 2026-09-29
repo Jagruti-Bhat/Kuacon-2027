@@ -337,10 +337,6 @@ export default function Registration() {
 
                 handler: async (response) => {
 
-                    console.log(
-                        'RAZORPAY RESPONSE:',
-                        response
-                    )
 
                     const paymentId =
                         response?.razorpay_payment_id
@@ -385,10 +381,7 @@ export default function Registration() {
                         const verifyData =
                             await verifyResponse.json()
 
-                        console.log(
-                            'VERIFY RESPONSE:',
-                            verifyData
-                        )
+                        
 
                         if (
                             !verifyResponse.ok ||
@@ -449,10 +442,7 @@ export default function Registration() {
                             return
                         }
 
-                        console.log(
-                            'Registration ID:',
-                            saveData.registrationId
-                        )
+                        
 
                         const registrationId = saveData.registrationId;
 
@@ -489,10 +479,7 @@ export default function Registration() {
                         const emailText =
                             await emailResponse.text()
 
-                        console.log(
-                            'EMAIL API RESPONSE:',
-                            emailText
-                        )
+                        
 
                         let emailData
 

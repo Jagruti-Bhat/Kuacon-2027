@@ -265,16 +265,6 @@ export default async function handler(req, res) {
       })
 
 
-    console.log(
-      'Organizer email:',
-      organizerResult
-    )
-
-    console.log(
-      'Participant email:',
-      participantResult
-    )
-
 
     return res.status(200).json({
       success: true,

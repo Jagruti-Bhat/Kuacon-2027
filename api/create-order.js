@@ -225,7 +225,6 @@ export default async function handler(req, res) {
       receipt: `kuacon_${Date.now()}`,
     });
 
-    console.log({totalAmount})
 
 
     // -----------------------------
