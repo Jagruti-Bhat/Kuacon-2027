@@ -6,7 +6,7 @@ const kuaCouncil = [
     name: 'Dr. Gajanan Bhat',
     initials: 'GB',
     image: '/committee/gajanan-bhat.jpg',
-    roles: ['President KUA', 'Organizing Secretary, KUACON 2027']
+    roles: ['President KUA', 'Organizing Chairman, KUACON 2027']
   },
   { name: 'Name to be added', initials: '+', image: '', roles: ['Council designation'] },
   { name: 'Name to be added', initials: '+', image: '', roles: ['Council designation'] },
@@ -52,7 +52,6 @@ export default function OrganizingCommittee(){
   return (
     <div className="committee-page">
       <CommitteeSection title="KUA Council" members={kuaCouncil} />
-      <CommitteeSection title="Organizing Committee" members={organizingCommittee} />
     </div>
   )
 }

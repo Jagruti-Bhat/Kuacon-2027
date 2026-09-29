@@ -29,7 +29,7 @@ export default function ContactUs(){
       <div className="contact-details">
         <ContactItem icon="person" title="Conference Secretariat:">
           <p>Dr. Gajanan Bhat</p>
-          <p>Organizing Secretary</p>
+          <p>Organizing Chairman</p>
         </ContactItem>
         <ContactItem icon="pin" title="Our Address:">
           <p>TSS Hospital, Shanthi Nagar, Chipgi,</p>
